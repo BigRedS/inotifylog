@@ -12,10 +12,13 @@ use Time::HiRes qw/gettimeofday/;
 use Cwd;
 use Sys::Syslog;
 
+my $version="0.20180316";
+
 my $help = undef;
 my $dump_maskinfo = undef;
 my @file_exclude_regex = ();
 my $log_to_syslog = undef;
+my $show_version = undef;
 
 my $file_mask = IN_ALL_EVENTS;
 my $dir_mask = IN_ALL_EVENTS;
@@ -25,8 +28,10 @@ GetOptions(
 	"help" => \$help,
 	"mask-help" => \$dump_maskinfo,
 	"syslog" => \$log_to_syslog,
+	"version" => \$show_version,
 ) or die ("Error parsing command-line options");
 
+print "inotifylog version $version\n" and exit if $show_version;
 dump_masks() if $dump_maskinfo;
 help_and_exit() if $help;
 
